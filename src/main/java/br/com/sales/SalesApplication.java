@@ -25,25 +25,20 @@ public class SalesApplication {
             List<Customer> customers = customerRepository.findAll();
             customers.forEach(System.out::println);
 
-            customers.forEach(customer -> {
-                customer.setName(customer.getName() + " - Atualizado");
-                customerRepository.save(customer);
-            });
+            System.out.println(customerRepository.existsByName("Bruno"));
+            System.out.println(customerRepository.existsByName("Teste"));
 
-            System.out.println("Clientes atualizados: ");
-            List<Customer> updatedCustomers = customerRepository.findAll();
-            updatedCustomers.forEach(System.out::println);
+            List<Customer> customersFound = customerRepository.encontrarPorNome("Bruno");
+            customersFound.forEach(System.out::println);
 
-            System.out.println("Buscando clientes: ");
-            customerRepository.findByNameLike("ra").forEach(System.out::println);
+            List<Customer> customersFoundSqlNative = customerRepository.encontrarPorNomeNativo("Bruno");
+            customersFoundSqlNative.forEach(System.out::println);
 
-            System.out.println("Deletando clientes: ");
-            updatedCustomers.forEach(customer -> {
-                customerRepository.delete(customer);
-            });
+            customerRepository.deletaPorNome("Bruno");
 
-            System.out.println("Clientes na base de dados: ");
-            customerRepository.findAll().forEach(System.out::println);
+            List<Customer> newCustomerList = customerRepository.findAll();
+            newCustomerList.forEach(System.out::println);
+
         };
     }
 
