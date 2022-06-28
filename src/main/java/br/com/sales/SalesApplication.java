@@ -22,20 +22,20 @@ public class SalesApplication {
             customerRepository.save(new Customer("Bárbara"));
 
             System.out.println("Clientes: ");
-            List<Customer> customers = customerRepository.getAll();
+            List<Customer> customers = customerRepository.findAll();
             customers.forEach(System.out::println);
 
             customers.forEach(customer -> {
                 customer.setName(customer.getName() + " - Atualizado");
-                customerRepository.update(customer);
+                customerRepository.save(customer);
             });
 
             System.out.println("Clientes atualizados: ");
-            List<Customer> updatedCustomers = customerRepository.getAll();
+            List<Customer> updatedCustomers = customerRepository.findAll();
             updatedCustomers.forEach(System.out::println);
 
             System.out.println("Buscando clientes: ");
-            customerRepository.getByName("ra").forEach(System.out::println);
+            customerRepository.findByNameLike("ra").forEach(System.out::println);
 
             System.out.println("Deletando clientes: ");
             updatedCustomers.forEach(customer -> {
@@ -43,7 +43,7 @@ public class SalesApplication {
             });
 
             System.out.println("Clientes na base de dados: ");
-            customerRepository.getAll().forEach(System.out::println);
+            customerRepository.findAll().forEach(System.out::println);
         };
     }
 
