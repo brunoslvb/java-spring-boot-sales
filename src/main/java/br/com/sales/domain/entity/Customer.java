@@ -1,8 +1,17 @@
 package br.com.sales.domain.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "customer")
 public class Customer {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(name = "name", length = 100)
     private String name;
 
     public Customer(){}
