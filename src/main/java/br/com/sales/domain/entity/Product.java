@@ -1,10 +1,21 @@
 package br.com.sales.domain.entity;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "product")
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(name = "description")
     private String description;
-    private String unitPrice;
+
+    @Column(name = "unit_price")
+    private BigDecimal unitPrice;
 
     public Integer getId() {
         return id;
@@ -22,11 +33,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getUnitPrice() {
+    public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(String unitPrice) {
+    public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
