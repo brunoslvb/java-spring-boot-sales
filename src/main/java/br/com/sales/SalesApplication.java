@@ -1,7 +1,9 @@
 package br.com.sales;
 
 import br.com.sales.domain.entity.Customer;
+import br.com.sales.domain.entity.Order;
 import br.com.sales.domain.repository.CustomerRepository;
+import br.com.sales.domain.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootApplication
@@ -16,28 +20,28 @@ import java.util.List;
 public class SalesApplication {
 
     @Bean
-    public CommandLineRunner init(@Autowired CustomerRepository customerRepository){
+    public CommandLineRunner init(
+        @Autowired CustomerRepository customerRepository,
+        @Autowired OrderRepository orderRepository
+    ){
         return args -> {
-            customerRepository.save(new Customer("Bruno"));
-            customerRepository.save(new Customer("Bárbara"));
+            Customer customer = new Customer("Bruno");
+            customerRepository.save(customer);
 
-            System.out.println("Clientes: ");
-            List<Customer> customers = customerRepository.findAll();
-            customers.forEach(System.out::println);
+            Order order = new Order();
+            order.setCustomer(customer);
+            order.setOrderDate(LocalDate.now());
+            order.setTotal(BigDecimal.valueOf(100));
 
-            System.out.println(customerRepository.existsByName("Bruno"));
-            System.out.println(customerRepository.existsByName("Teste"));
+            orderRepository.save(order);
 
-            List<Customer> customersFound = customerRepository.encontrarPorNome("Bruno");
-            customersFound.forEach(System.out::println);
+            Customer customerFound = customerRepository.findCustomerFetchOrders(customer.getId());
 
-            List<Customer> customersFoundSqlNative = customerRepository.encontrarPorNomeNativo("Bruno");
-            customersFoundSqlNative.forEach(System.out::println);
+            System.out.println(customerFound);
+            System.out.println(customerFound.getOrders());
 
-            customerRepository.deletaPorNome("Bruno");
+            orderRepository.findByCustomer(customer).forEach(System.out::println);
 
-            List<Customer> newCustomerList = customerRepository.findAll();
-            newCustomerList.forEach(System.out::println);
 
         };
     }

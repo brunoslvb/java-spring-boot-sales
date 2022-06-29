@@ -27,4 +27,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     void deletaPorNome(@Param("name") String name);
 
     boolean existsByName(String name);
+
+    @Query("SELECT c FROM Customer c LEFT JOIN FETCH c.orders WHERE c.id = :id")
+    Customer findCustomerFetchOrders(@Param("id") Integer id);
 }
