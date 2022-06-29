@@ -1,6 +1,6 @@
-package br.com.sales.domain.repository;
+package br.com.sales.domain.repositories;
 
-import br.com.sales.domain.entity.Customer;
+import br.com.sales.domain.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

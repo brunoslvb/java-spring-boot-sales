@@ -1,4 +1,4 @@
-package br.com.sales.domain.entity;
+package br.com.sales.domain.entities;
 
 import javax.persistence.*;
 import java.util.Set;
