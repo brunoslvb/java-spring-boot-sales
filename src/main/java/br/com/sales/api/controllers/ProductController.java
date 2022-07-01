@@ -51,7 +51,7 @@ public class ProductController {
     public Product getById(@PathVariable Integer id){
         return productRepository
             .findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
 
     @GetMapping
