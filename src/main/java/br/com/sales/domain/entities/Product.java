@@ -21,11 +21,11 @@ public class Product {
     private Integer id;
 
     @Column(name = "description")
-    @NotEmpty(message = "Field 'description' is required")
+    @NotEmpty(message = "{field.product.description.required}")
     private String description;
 
     @Column(name = "unit_price")
-    @NotNull(message = "Field 'unitPrice' is required")
+    @NotNull(message = "{field.product.unit-price.required}")
     private BigDecimal unitPrice;
 
 }
