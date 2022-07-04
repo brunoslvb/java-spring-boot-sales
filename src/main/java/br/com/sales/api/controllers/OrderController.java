@@ -15,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +33,7 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer save(@RequestBody OrderDTO orderDTO){
+    public Integer save(@RequestBody @Valid OrderDTO orderDTO){
         Order order = orderService.save(orderDTO);
         return order.getId();
     }
@@ -46,7 +47,7 @@ public class OrderController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateStatus(@PathVariable Integer id, @RequestBody OrderStatusDTO orderStatusDTO){
+    public void updateStatus(@PathVariable Integer id, @RequestBody @Valid OrderStatusDTO orderStatusDTO){
         orderService.updateStatus(id, OrderStatus.valueOf(orderStatusDTO.getNewStatus()));
     }
 
